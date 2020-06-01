@@ -1,0 +1,34 @@
+# Java Design Patterns
+
+First principle is to use interfaces and **program to interfaces**. The idea is to program to a superclass. We know only about the interface and not about the implemenation. This is common theme of design patterns. Programming to an interface greatly reduces implementation dependencies between subsystems. You should utilize interfaces if you want to specify the behavior of a particular data type, but are not concerned about who implements its behavior. For example, many unrelated classes implement `Comparable` and `Cloneable` interfaces. In the example, let's say we have a computer that displays on a monitor and later if we want to display on a projector, we can have an interface for display and we can change implementation later.
+
+**Delegation** is the concept of one class delegating its behavior to another class. When you delegate, you are calling up some class which knows what must be done. One object forwards certain method calls to another object, called its delegate. It provides run-time flexibility. Several design patterns use delegation. For example, state, strategy and visitor pattern.
+- State: An object delegates requests to a State object that represents its current state.
+- Strategy: An object delegates a specific request to an object that represents a strategy for carrying out the request.
+- Visitor: The opreation that gets performed on each element of an object structure is always delegated to the Visitor object.
+For example, `Printer` class delegates to `RealPrinter` class.
+
+**Single Responsibility** principle mentions that every class should have responsibility over a single part of the functionality. A class should have single job. Only when we need to change specific task or functionality, the class should be changed. Tight coupling means two classes/methods are closely connected. A change in one module may affect another module. Cohension refers to what the class can do. Low cohesion would mean that the class does a great variety of actions. High cohesion means that the class is focused on what it should be doing. It contains only methods relating to the intention of the class. Single reponsibility principle means limiting the impact of change by designing loosely coupled classes that are highly cohesive.
+
+**Open-Closed Principle** means classes and methods should be open for extension and closed for modifications. A class should be easily extendable without modifying the class. It shoulf be possible to add fields to the data structures it contains. The general idea of this principle is that it tells you to write code so that you will be able to add new functionality without changing the existing code. It prevents situations in which a change to one of your classes also requires you to adapt all depending classes. It reduces tight coupling.
+
+**Liskov Substitution Principle** defines that objects of a superclass can be replaceable with objects of its subclasses without breaking the application. An overridden method of a subclass needs to accept the same input parameters as the method of superclass.
+
+The **Interface Segregation Principle** states that clients should not be forced to depend upon interfaces that they do not use. A client should not implement an interface if it does not use a method in that interface. This happens mostly when one interface contains more than one functionality, and the client only needs one functionality and not the other. We can separate to individual interfaces.
+
+**Dependency Inversion** states entities must depend on abstractions and not on concrete implementations. Abstractions should not depend upon details. Inversion is thinking from bottom level low level classes to higher level. This is similar to programming to interfaces.
+
+**Dependency Injection** : If a class uses an instance of another class, that is referred to as class dependency. Dependency Injection is a technique whereby one object supplies the dependencies of another object. It allows to remove hard-coded dependencies and make our application loosely-coupled, extendable and maintainable. There are three ways to inject dependencies: using constructor, setter injection or interface injection where dependency provides an injector method that will inject the dependency into any client passed into.
+
+## Creational Design Patterns
+
+Program should not depend on how objects are created and arranged. They abstract the instantiation process and the creation logic is hidden. It encapsulates the knowledge about which concrete class the system uses.
+
+**Factory method** is one of the most used design pattern.
+ We define an interface to create an object (Creator). When a class needs to instantiate a subclass of another class, but doesn't know which one. It lets subclasses decide which class to instantiate. It gives a way to encapsulate creating objects. It is widely used in frameworks. `SAXParserFactory` uses `newInstance` as a factory method which instantiates the SAX parsers based on some logic. `java.util.Calendar`, `ResourceBundle` and `NumberFormat` has `getInstance()` method as factory pattern.
+ The creator class can be abstract class. Abstract Factory method does this.
+ Concrete creator class avoids creating abstract classes. Implementation of factory method will create the correct product type based on parameter provided to the method.
+ Concrete class could also have a static method to create product classes. You cannot subclass to change the behavior of factory method.
+**Abstract Factory** method provides an interface for creating families of related or dependent objects without specifying concrete classes. It is super factory that creates other factories. The methods of Abstract Factory are implemented as factory methods. When you have family products (multiple factories), it can be used. The client does not even know which particular factory it uses because it only knows that it has an AbstractFactory object.
+**Singleton Design pattern** gives the best way to create a single object. To create an instance, we have to go through this class. It is usually best practice to have a special method to instantiate the desired object. If object is already instantiated, the method just returns a reference to the object else it returns a reference to the new instance. For this, the constructors of this class should be private or protected so that method is the only way to create an object.
+The lazy implementation uses `getInstance` method. This is not thread-safe. If two calls are made to the method, then both may create instances. If singleton was stateless, it could be better for thread-safety.
